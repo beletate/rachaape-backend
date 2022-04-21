@@ -11,12 +11,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 
-const locatorRoutes = require('./routes/locatorRoutes')
-const tenantRoutes = require('./routes/tenantRoutes')
+const userRoutes = require('./routes/userRoutes');
 
-app.use('locator/auth', locatorRoutes)
-app.use('tenant/auth', tenantRoutes)
-app.use('room', tenantRoutes)
+app.use('/auth', userRoutes);
 
 app.get('/', (req, res) => {
     res.json({message: 'Hello Express!'})

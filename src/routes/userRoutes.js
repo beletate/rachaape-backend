@@ -2,14 +2,14 @@ const router = require('express').Router()
 const User = require('../models/User')
 
 router.post('/register', async (req, res) => {
-
+    
     const { email } = req.body;
-
+    
     try {
-        if(await User.findOne({ email })) return res.send(400).send({ error: 'Usuário já existe.'})
+        if(await User.findOne({ email })) return res.status(400).send({ error: 'Usuário já existe.'})
         
         await User.create(req.body)
-        res.status(201).json({ message: 'Pessoa inserida.' })
+        res.status(201).json({ message: 'Tudo ok!' })
     } catch (err) {
         res.status(500).json({ error: err })
     }
@@ -49,6 +49,11 @@ router.patch('/register/:id', async (req, res) => {
     const { name, email, password } = req.body
 
     const user = {
+        photo,
+        age,
+        minPrice,
+        maxPrice,
+        phone,
         name,
         email,
         password

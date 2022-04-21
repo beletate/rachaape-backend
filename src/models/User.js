@@ -2,7 +2,27 @@ const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs')
 
 const UserSchema = new mongoose.Schema({
+    photo: {
+        type: Object,
+        require: true,
+    },
     name: {
+        type: String,
+        require: true,
+    },
+    age: {
+        type: Number,
+        require: true,
+    },
+    minPrice: {
+        type: String,
+        require: true,
+    }, 
+    maxPrice: {
+        type: String,
+        require: true,
+    },
+    phone: {
         type: String,
         require: true,
     },
@@ -23,7 +43,7 @@ const UserSchema = new mongoose.Schema({
     },
 })
 
-UserSchema.pre('save', async function(next) {
+UserSchema.pre('save', async function (next) {
     const hash = await bcrypt.hash(this.password, 10);
     this.password = hash;
 
