@@ -17,7 +17,7 @@ const UserSchema = new mongoose.Schema({
     minPrice: {
         type: String,
         require: true,
-    }, 
+    },
     maxPrice: {
         type: String,
         require: true,
@@ -35,12 +35,39 @@ const UserSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
-        select: false,
     },
     createdAt: {
         type: Date,
         default: Date.now,
     },
+    lifestyle: {
+        animal: {
+            type: String,
+            require: false,
+        },
+        party: {
+            type: String,
+            require: false,
+        },
+        smoker: {
+            type: String,
+            require: false,
+        },
+        song: {
+            type: String,
+            require: false,
+        }
+    },
+    country: {
+        city: {
+            type: String,
+            require: true,
+        },
+        state: {
+            type: String,
+            require: true,
+        }
+    }
 })
 
 UserSchema.pre('save', async function (next) {
