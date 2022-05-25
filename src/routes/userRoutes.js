@@ -14,6 +14,15 @@ router.post('/register', async (req, res) => {
         res.status(500).json({ error: err })
     }
 })
+router.post('/photo', async (req, res) => {
+    console.log(req.body)
+
+    try {
+        res.status(201).json({ message: 'Ok!' })
+    } catch (err) {
+        res.status(500).json({ error: err })
+    }
+})
 
 router.get('/register', async (req, res) => {
 

@@ -12,8 +12,10 @@ app.use(express.json());
 app.use(cors());
 
 const userRoutes = require('./routes/userRoutes');
+const roomRoutes = require('./routes/roomRoutes');
 
 app.use('/auth', userRoutes);
+app.use('/room', roomRoutes);
 
 app.get('/', (req, res) => {
     res.json({message: 'Hello Express!'})
