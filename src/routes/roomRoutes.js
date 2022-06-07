@@ -24,12 +24,32 @@ router.get('/', async (req, res) => {
 
 })
 
+router.patch('/edit/:id', async (req, res) => {
+
+    const roomBody = req.body
+    console.log(roomBody)
+
+    try {
+        const updatedRoom = await Room.updateOne({ _id: req.params.id }, roomBody)
+
+        if (updatedRoom.matchedCount === 0) {
+            res.status(422).json({ message: 'O quarto não foi encontrado!' })
+            return
+        }
+
+        res.status(200).json("Quarto atualizado!")
+    } catch (err) {
+        res.status(500).json({ error: err })
+    }
+
+})
+
 router.get('/all/:id', async (req, res) => {
 
     try {
         const rooms = await Room.find({
             owner: {
-                $ne: req.params.id + '1'
+                $ne: req.params.id
             }
         })
 
