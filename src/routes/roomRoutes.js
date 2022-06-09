@@ -27,7 +27,6 @@ router.get('/', async (req, res) => {
 router.patch('/edit/:id', async (req, res) => {
 
     const roomBody = req.body
-    console.log(roomBody)
 
     try {
         const updatedRoom = await Room.updateOne({ _id: req.params.id }, roomBody)
