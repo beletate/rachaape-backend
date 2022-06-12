@@ -98,7 +98,7 @@ router.get('/register/room/:id', async (req, res) => {
 
     try {
         const user = await User.findOne({ _id: req.params.id }).select([
-            '-password', 
+            '-password',
             '-lifestyle',
             '-country',
             '-minPrice',
@@ -135,6 +135,25 @@ router.patch('/register/:id', async (req, res) => {
         password
     }
 
+    try {
+        const updatedUser = await User.updateOne({ _id: req.params.id }, user)
+
+        if (updatedUser.matchedCount === 0) {
+            res.status(422).json({ message: 'O usuáro não foi encontrado!' })
+            return
+        }
+
+        res.status(200).json(user)
+    } catch (err) {
+        res.status(500).json({ error: err })
+    }
+
+})
+
+router.patch('/city/:id', async (req, res) => {
+    const { city, state } = req.body
+
+    const user = { country: { city, state } }
     try {
         const updatedUser = await User.updateOne({ _id: req.params.id }, user)
 

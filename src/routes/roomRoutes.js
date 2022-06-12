@@ -43,14 +43,17 @@ router.patch('/edit/:id', async (req, res) => {
 
 })
 
-router.get('/all/:id', async (req, res) => {
-
+router.post('/all/:id', async (req, res) => {
     try {
         const rooms = await Room.find({
             owner: {
                 $ne: req.params.id
             }
         })
+        .where('city')
+        .in(req.body.city)
+
+
 
         res.status(200).json(rooms)
     } catch (err) {
