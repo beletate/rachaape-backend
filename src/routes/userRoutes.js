@@ -15,7 +15,6 @@ router.post('/register', async (req, res) => {
     }
 })
 router.post('/photo', async (req, res) => {
-    console.log(req.body)
 
     try {
         res.status(201).json({ message: 'Ok!' })
@@ -78,7 +77,6 @@ router.post('/register/login', async (req, res) => {
 })
 
 router.get('/register/itself/:id', async (req, res) => {
-
     try {
         const user = await User.findOne({ _id: req.params.id }).select(['-password'])
 
@@ -122,7 +120,7 @@ router.get('/register/room/:id', async (req, res) => {
 
 router.patch('/register/:id', async (req, res) => {
 
-    const { name, email, password } = req.body
+    const { name, photo, age,  minPrice, maxPrice, phone} = req.body
 
     const user = {
         photo,
@@ -131,8 +129,6 @@ router.patch('/register/:id', async (req, res) => {
         maxPrice,
         phone,
         name,
-        email,
-        password
     }
 
     try {

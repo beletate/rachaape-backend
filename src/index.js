@@ -1,11 +1,16 @@
 require('dotenv').config()
 const express = require('express');
+const path = require('path');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
 const app = express();
 
+const PORT = process.env.PORT || 5000;
 const User = require('./models/User')
+
+const buildPath = path.join(__dirname, '..', 'build');
+app.use(express.static(buildPath));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -24,9 +29,9 @@ app.get('/', (req, res) => {
 const DB_USER = process.env.DB_USER
 const DB_PASSWORD = encodeURIComponent(process.env.DB_PASSWORD)
 
-mongoose.connect(`mongodb+srv://${DB_USER}:${DB_PASSWORD}@rachape-app.jdlad.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`)
+mongoose.connect(`mongodb+srv://rachape:rachape@rachape-app.jdlad.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`)
 .then(() => {
-    console.log('Conectamos ao MongoDB!')
-    app.listen(3001)
+    console.log('Conectamos ao MongoDB! Porta ' + PORT)
+    app.listen(PORT)
 })
 .catch((err) => console.log(err))
